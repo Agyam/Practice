@@ -1,0 +1,243 @@
+Problem Statement 1:
+
+You need to design an Employee class in Java with the following attributes:
+
+empId (Integer) – Unique employee ID.
+
+name (String) – The employee's name, which must meet the following conditions:
+
+The length must be between 5 to 10 characters.
+
+It must start with a capital letter.
+
+panNo (String) – The employee's PAN number, which must meet the following conditions:
+
+It should be exactly 10 characters long.
+
+The first 5 characters must be uppercase letters (A-Z).
+
+The next 4 characters must be digits (0-9) and must start with '0'.
+
+The last character must be an uppercase letter (A-Z).
+
+The last letter determines the city:
+
+'M' → Mumbai
+
+'P' → Pune
+
+'K' → Kolkata
+
+'B' → Bangalore
+
+joiningDate (LocalDate) – The employee's joining date.
+
+city (String) – The employee's work location (derived from panNo).
+
+
+
+Requirements:
+
+1. Custom Exception: Create an InvalidEmployeeException to handle cases where input validation fails.
+
+2. User Input: The program should take input for 20 employees. If any input is invalid, the program should reject that employee without storing it in a collection.
+
+3. Stream API Operations:
+
+Find out how many employees have at least 1 year of experience from today's date.
+
+Create a Map<String, Integer> where the key is the city name, and the value is the number of employees working in that city.
+
+
+
+
+
+
+
+
+
+Method Name
+
+Description
+
+Employee(int empId, String name, String panNo, LocalDate joiningDate)
+
+Constructor to initialize an employee with validation for name and PAN number.
+
+validateName(String name)
+
+Validates that the name length is between 5-10 characters and starts with a capital letter.
+
+validatePan(String panNo)
+
+Ensures the PAN number follows the required format and extracts the city from it.
+
+getExperienceInYears()
+
+Calculates the number of years since the employee's joining date.
+
+getCityFromPan(String panNo)
+
+Determines the city based on the last character of the PAN number.
+
+getEmployeeDetails()
+
+Returns the employee's details as a formatted string.
+
+findExperiencedEmployees(List<Employee> employees)
+
+Uses Stream API to count employees with at least 1 year of experience.
+
+getCityWiseEmployeeCount(List<Employee> employees)
+
+Generates a Map<String, Integer> representing the number of employees per city.
+
+
+
+Input Format:
+
+For each employee, input the following details:
+
+
+
+empId name panNo joiningDate (yyyy-MM-dd)
+
+
+
+(City is determined automatically from panNo)
+
+
+
+Output Format:
+
+Print the number of employees with at least 1 year of experience.
+
+Print the map of cities and the number of employees in each city.
+
+
+
+Sample Test Cases
+
+Test Case 1: Valid Employee Data (Successful Case)
+
+Enter details for Employee 1:
+
+empId: 101
+
+name: AmitKumar
+
+panNo: ABCDE0123M
+
+joiningDate: 2022-06-15
+
+
+
+Employee added successfully!
+
+
+
+Test Case 2: Invalid Employee Name (Too Short)
+
+Enter details for Employee 2:
+
+empId: 102
+
+name: Raj
+
+panNo: FGHIJ0456P
+
+joiningDate: 2023-03-10
+
+
+
+Error: Employee name must be between 5 to 10 characters!
+
+
+
+Test Case 3: Invalid Employee Name (Does Not Start with Capital Letter)
+
+Enter details for Employee 3:
+
+empId: 103
+
+name: vikasSingh
+
+panNo: LMNOP0678B
+
+joiningDate: 2021-11-25
+
+
+
+Error: Employee name must start with a capital letter!
+
+
+
+Test Case 4: Invalid PAN Number (Less Than 10 Characters)
+
+Enter details for Employee 4:
+
+empId: 104
+
+name: RohitSharma
+
+panNo: ABCD0123M
+
+joiningDate: 2023-09-05
+
+
+
+Error: PAN number must be exactly 10 characters long!
+
+
+
+Test Case 5: Invalid PAN Number (First Five Characters Not Uppercase)
+
+Enter details for Employee 5:
+
+empId: 105
+
+name: SunilPatel
+
+panNo: Abcde0123M
+
+joiningDate: 2020-12-20
+
+
+
+Error: First five characters of PAN must be uppercase letters!
+
+
+
+Test Case 6: Valid Employee Data (PAN Ending with 'P' → Pune)
+
+Enter details for Employee 6:
+
+empId: 106
+
+name: SureshRaj
+
+panNo: FGHIJ0456P
+
+joiningDate: 2022-08-12
+
+
+
+ Employee added successfully!
+
+
+
+Test Case 7: Valid Employee Data (PAN Ending with 'K' → Kolkata)
+
+Enter details for Employee 7:
+
+empId: 107
+
+name: AkashMishra
+
+panNo: QWERT0123K
+
+joiningDate: 2020-04-25
+
+
+
+Employee added successfully!
