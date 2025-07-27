@@ -1,4 +1,4 @@
 package org.example.String;
 
-public class ObjecvtConcpt {
+public class Test {
 }
