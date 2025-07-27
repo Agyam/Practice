@@ -1,0 +1,557 @@
+package org.example.CG_Questiopns.QuestionsSet;
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+public class Question001 {
+    // EvenNumberStream
+    public static void main(String[] args) {
+        List<Integer> numbers = Arrays.asList(10, 15, 22, 33, 44, 55, 60);
+
+        // Stream to filter even numbers
+        List<Integer> evenNumbers = numbers.stream()
+                .filter(n -> n % 2 == 0)   // keep only even
+                .collect(Collectors.toList()); // Converts stream to a list
+
+        System.out.println("Even Numbers: " + evenNumbers);//print the list
+    }
+}
+
+
+
+
+
+package org.example.CG_Questiopns.QuestionsSet;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+/**
+ * Q2 Given a list of integers, find out all the numbers starting with 1 using Stream functions?
+ */
+public class Question002 {
+    public static void main(String[] args) {
+        List<Integer> numbers = Arrays.asList(10, 15, 21, 33, 144, 155, 60, 1);
+
+        // Filter numbers starting with 1
+        List<Integer> startsWithOne = numbers.stream()
+                .filter(n -> String.valueOf(n).startsWith("1")) // n is integer, converting to string with String class valueOf() method
+                .collect(Collectors.toList());
+
+        System.out.println("Numbers starting with 1: " + startsWithOne);
+    }
+}
+
+
+package org.example.CG_Questiopns.QuestionsSet;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+//Q3 How to find duplicate elements in a given integers list in java using Stream functions?
+public class Question003 {
+    public static void main(String[] args) {
+        List<Integer> numbers = Arrays.asList(10, 20, 30, 10, 50, 20, 60, 70);
+
+        Set<Integer> seen = new HashSet<>();
+
+        List<Integer> duplicates = numbers.stream()
+                .filter(n -> !seen.add(n)) // if add() returns false, it's a duplicate
+                .collect(Collectors.toList());
+
+        System.out.println("Duplicate elements: " + duplicates);
+    }
+}
+
+
+package org.example.CG_Questiopns.QuestionsSet;
+
+import java.util.*;
+import java.util.stream.*;
+/**
+ * Q4 Given the list of integers, find the first element of the list using Stream functions?
+ */
+public class Question004 {
+    public static void main(String[] args) {
+
+        List<Integer> numbers = Arrays.asList(15, 25, 35, 45);
+
+        Integer first = numbers.stream()
+                .findFirst()
+                .orElse(null); // returns null if list is empty
+
+        System.out.println("First element: " + first);
+    }
+}
+
+
+package org.example.CG_Questiopns.QuestionsSet;
+
+import java.util.*;
+import java.util.stream.*;
+
+public class Question005 {
+    public static void main(String[] args) {
+        List<Integer> numbers = Arrays.asList(10, 20, 30, 40, 50);
+
+        long count = numbers.stream().count();
+
+        System.out.println("Total elements: " + count);
+    }
+}
+
+package org.example.CG_Questiopns.QuestionsSet;
+
+import java.util.*;
+import java.util.stream.*;
+
+public class Question006 {
+    public static void main(String[] args) {
+        List<Integer> numbers = Arrays.asList(25, 80, 15, 90, 60);
+
+        int max = numbers.stream()
+                .max(Comparator.naturalOrder())
+                .get(); // safely use get() if list is not empty
+
+        System.out.println("Maximum element: " + max);
+    }
+}
+
+package org.example.CG_Questiopns.QuestionsSet;
+
+/**
+ * Given a String, find the first non-repeated character in it using Stream functions?
+ */
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.*;
+
+public class Question007 {
+    public static void main(String[] args) {
+        String input = "swiss";
+
+        Optional<Character> firstNonRepeated = input.chars() // IntStream of characters
+                .mapToObj(c -> (char) c) // convert int to Character
+                .collect(Collectors.groupingBy(
+                        Function.identity(),    //a function that returns the same input
+                        LinkedHashMap::new, // maintains insertion order
+                        Collectors.counting()
+                ))
+                // now we have LinkedHashMap<Character,Long>
+
+                .entrySet().stream()
+                //all key value pairs
+
+                .filter(entry -> entry.getValue() == 1)
+                //entry : one key value pair,   entry.getValue(): return value of entry
+
+                .map(Map.Entry::getKey)
+                // gives the key of that entry
+
+                .findFirst();
+
+        System.out.println("First non-repeated character: " + firstNonRepeated.orElse(null));
+    }
+
+
+}
+
+
+
+
+package org.example.CG_Questiopns.QuestionsSet;
+
+/**
+ * Given a String, find the first repeated character in it using Stream functions?
+ */
+import java.util.*;
+import java.util.stream.*;
+
+public class Question008 {
+    public static void main(String[] args) {
+        String input = "programming";
+
+        Set<Character> seen = new HashSet<>();
+
+        Optional<Character> firstRepeated = input.chars() // IntStream of characters,  Returns IntStream of character codes (ASCII)
+                .mapToObj(c -> (char) c)    //Converts each int to Character object
+                .filter(c -> !seen.add(c)) // add() returns false if already exists
+                .findFirst();
+
+        System.out.println("First repeated character: " + firstRepeated.orElse(null));
+    }
+}
+
+
+
+
+package org.example.CG_Questiopns.QuestionsSet;
+
+/**
+ * Given a list of integers, sort all the values present in it using Stream functions?
+ */
+import java.util.*;
+import java.util.stream.*;
+
+public class Question009 {
+    public static void main(String[] args) {
+        List<Integer> list = Arrays.asList(9, 5, 3, 7, 1, 6);
+
+        List<Integer> sortedList = list.stream()
+                .sorted() // Natural ascending order
+                .collect(Collectors.toList()); //Converts stream to a list
+
+        System.out.println("Sorted list: " + sortedList);
+    }
+}
+
+
+
+
+package org.example.CG_Questiopns.QuestionsSet;
+
+/**
+ * Given a list of integers, sort all the values present in it in descending order using Stream functions?
+ */
+import java.util.*;
+import java.util.stream.*;
+
+public class Question010 {
+    public static void main(String[] args) {
+        List<Integer> list = Arrays.asList(9, 5, 3, 7, 1, 6);
+
+        List<Integer> sortedDesc = list.stream()
+                .sorted(Comparator.reverseOrder()) //// Sorts in descending order
+                .collect(Collectors.toList());
+
+        System.out.println("Descending Sorted List: " + sortedDesc);
+    }
+}
+
+
+
+package org.example.CG_Questiopns.QuestionsSet;
+
+/**
+ *
+ Q11) Write a Java 8 program to concatenate two Streams?
+ */
+import java.util.*;
+import java.util.stream.*;
+
+public class Question011 {
+    public static void main(String[] args) {
+        List<String> list1 = Arrays.asList("Java", "Spring");
+        List<String> list2 = Arrays.asList("Docker", "Kafka");
+
+        Stream<String> combined = Stream.concat(list1.stream(), list2.stream());
+
+        List<String> result = combined.collect(Collectors.toList());
+
+        System.out.println("Concatenated Stream: " + result);
+    }
+}
+
+
+
+package org.example.CG_Questiopns.QuestionsSet;
+
+import java.util.*;
+
+/**
+ * Write a Java 8 program to find the number of Strings in a list whose length is greater than 5?
+ */
+public class Question012 {
+    public static void main(String[] args) {
+        List<String> list = Arrays.asList("Spring", "Docker", "Kafka", "Java", "Microservices");
+
+        long count = list.stream()
+                .filter(str -> str.length() > 5)
+                .count();
+
+        System.out.println("Strings with length > 5: " + count);
+    }
+}
+
+
+package org.example.CG_Questiopns.QuestionsSet;
+
+import java.util.StringJoiner;
+/*Explain StringJoiner Class in Java 8? How can we achieve joining multiple Strings using StringJoiner Class?*/
+public class Question013 {
+    public static void main(String[] args) {
+        StringJoiner sj = new StringJoiner(", "); // StringJoiner use
+        sj.add("Java");
+        sj.add("Spring");
+        sj.add("Docker");
+
+        StringJoiner sj2 = new StringJoiner(", ", "[", "]");
+        sj2.add("Java");
+        sj2.add("Spring");
+        sj2.add("Docker");
+
+        System.out.println(sj);  // Output: Java, Spring, Docker
+        System.out.println(sj2);  // Output: [Java, Spring, Docker]
+    }
+}
+package org.example.CG_Questiopns.QuestionsSet;
+
+import java.util.StringJoiner;
+/*Explain StringJoiner Class in Java 8? How can we achieve joining multiple Strings using StringJoiner Class?*/
+public class Question013 {
+    public static void main(String[] args) {
+        StringJoiner sj = new StringJoiner(", "); // StringJoiner use
+        sj.add("Java");
+        sj.add("Spring");
+        sj.add("Docker");
+
+        StringJoiner sj2 = new StringJoiner(", ", "[", "]");
+        sj2.add("Java");
+        sj2.add("Spring");
+        sj2.add("Docker");
+
+        System.out.println(sj);  // Output: Java, Spring, Docker
+        System.out.println(sj2);  // Output: [Java, Spring, Docker]
+    }
+}
+
+
+
+package org.example.CG_Questiopns.QuestionsSet;
+
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+/**
+ * Find the Word/number got repeated by using Stream API (input: 2,3,34,5,5,4,3,3,3 → output: 2-1,3-4,34-1,5-2,4-1)
+ */
+public class Question014 {
+    public static void main(String[] args) {
+        List<Integer> input = Arrays.asList(2, 3, 34, 5, 5, 4, 3, 3, 3);
+
+        Map<Integer, Long> freqMap = input.stream()
+                .collect(Collectors.groupingBy(
+                Function.identity(),           // Group by the element itself
+                Collectors.counting()          // Count the occurrences
+        ));
+
+        freqMap.forEach((k, v) -> System.out.println(k + "-" + v));
+    }
+}
+
+
+package org.example.CG_Questiopns.QuestionsSet;
+
+/**
+ * Write a Java Lambda Expression to Create a Thread
+ */
+public class Question015 {
+    public static void main(String[] args) {
+        // Creating a thread using lambda expression
+        Thread thread = new Thread(() -> {
+            System.out.println("Thread is running using Lambda!");
+        });
+
+        thread.start(); // Start the thread
+    }
+}
+
+
+
+package org.example.CG_Questiopns.QuestionsSet;
+
+
+/**
+ * How Lambda Expression and Functional Interfaces are Related?
+ */
+public class Question016 {
+    public static void main(String[] args) {
+        MyFunctionalInterface obj = () -> System.out.println("Hello using Lambda!");
+        obj.sayHello();
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+package org.example.CG_Questiopns.QuestionsSet;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+/*Given a list of Strings, convert each String to uppercase and join them with comma (,) using Stream API (List=["USA", "Japan", "France", ...])*/
+public class Question017 {
+    public static void main(String[] args) {
+        List<String> countries = Arrays.asList("USA", "Japan", "France", "India");
+
+        String result = countries.stream()
+                .map(String::toUpperCase)        // Convert String to uppercase String
+                .collect(Collectors.joining(",")); // Join with commas
+
+        System.out.println(result); // Output: USA,JAPAN,FRANCE,INDIA
+    }
+}
+
+
+
+
+
+
+package org.example.CG_Questiopns.QuestionsSet;
+
+import java.util.*;
+import java.util.stream.Collectors;
+/*Given a list of Integers, find square of all distinct numbers by using Stream API (list=[9, 10, 3, 4, 7, 3, 4])*/
+public class Question018 {
+    public static void main(String[] args) {
+        List<Integer> list = Arrays.asList(9, 10, 3, 4, 7, 3, 4);
+
+        List<Integer> result = list.stream()
+                .distinct()          // Remove duplicates
+                .map(n -> n * n)     // Square each number
+                .collect(Collectors.toList());
+
+        System.out.println(result); // Output: [81, 100, 9, 16, 49]
+    }
+}
+
+
+
+
+
+
+package org.example.CG_Questiopns.QuestionsSet;
+
+import java.util.Arrays;
+import java.util.IntSummaryStatistics;
+import java.util.List;
+//Given a list of Integers, find total count, min, max, sum, and average using Stream API (input: [2, 3, 5, ...])
+public class Question019 {
+    public static void main(String[] args) {
+        List<Integer> list = Arrays.asList(2, 3, 5, 7, 9, 3);
+
+        IntSummaryStatistics stats = list.stream()
+
+                .mapToInt(Integer::intValue)
+//              Converts Stream<Integer> to IntStream
+
+                .summaryStatistics();
+//              Gathers all stats in one shot
+
+        System.out.println("Count: " + stats.getCount());
+        System.out.println("Min: " + stats.getMin());
+        System.out.println("Max: " + stats.getMax());
+        System.out.println("Sum: " + stats.getSum());
+        System.out.println("Average: " + stats.getAverage());
+    }
+}
+
+
+
+
+
+
+
+package org.example.CG_Questiopns.QuestionsSet;
+
+
+/**
+ * Q20 Given list input: ["Himanshu", "Devraj12", "rajeesh", "pavan", "sachine"], create Map output: {5=[pavan], 7=[rajeesh, sachine], 8=[Himanshu, Devraj12]}
+ */
+
+import java.util.*;
+import java.util.stream.*;
+public class Question020 {
+        public static void main(String[] args) {
+            List<String> names = Arrays.asList("Himanshu", "Devraj12", "rajeesh", "pavan", "sachine");
+
+            Map<Integer, List<String>> groupedByLength = names.stream()
+                    .collect(Collectors.groupingBy(String::length));   //Collector that groups items by a classifier length
+
+            System.out.println(groupedByLength);
+        }
+    }
+// if input:    List<String> names = Arrays.asList("Ram", "Shyam", "Radha", "Mohan");
+//output:       {3=[Ram], 5=[Radha, Mohan], 5=[Shyam]}
+
+
+
+package org.example.CG_Questiopns.QuestionsSet;
+/**
+ * Q21 Given String str="telCo", toggle it to str=TELcO.
+ */
+import java.util.stream.Collectors;
+
+public class Question021 {
+    public static void main(String[] args) {
+        String str = "telCo";
+
+        String toggled = str.chars()
+                .mapToObj(c -> Character.isUpperCase(c) ? Character.toLowerCase((char)c) : Character.toUpperCase((char)c))
+                // use of ternary operator, lambdas expression,
+                // change each capital character to small and smalls to capital and return in integer
+
+                .map(String::valueOf)
+//                Converts int to String (e.g., 1 → "1")
+
+                .collect(Collectors.joining());
+//                collect and concat characters to string
+
+        System.out.println(toggled);
+    }
+}
+
+
+
+
+
+package org.example.CG_Questiopns.QuestionsSet;
+
+/**
+ * Q16) How Lambda Expression and Functional Interfaces are Related?
+ */
+@FunctionalInterface
+interface MyFunctionalInterface {
+    void sayHello();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
